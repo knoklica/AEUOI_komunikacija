@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CovoMasinar</string>
+
+    <string name="a_button">A</string>
+    <string name="b_button">E</string>
+    <string name="c_button">I</string>
+    <string name="train_label">Trening</string>
+    <string name="train_button">GO</string>
+    <string name="fit_label">Fit</string>
+    <string name="fit_button">GO</string>
+    <string name="a_label">A</string>
+    <string name="b_label">E</string>
+    <string name="c_label">I</string>
+
+
+
+
+    <string name="OO">00</string>
+
+</resources>
