@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private ShortBuffer mSamples;
     final int SAMPLE_RATE = 44100;
     private static final String TAG = "MyDEBUG";
-    private int mNumSamples = SAMPLE_RATE*1;
+    private int mNumSamples = SAMPLE_RATE;
 
 
     private float[][] helperdata = new float[30000][50];
@@ -201,24 +201,24 @@ public class MainActivity extends AppCompatActivity {
             //build the layers of the network
             DenseLayer inputLayer = new DenseLayer.Builder()
                     .nIn(50)
-                    .nOut(15)
+                    .nOut(10)
                     .name("Input")
                     .build();
 
             DenseLayer hiddenLayer = new DenseLayer.Builder()
-                    .nIn(15)
-                    .nOut(15)
+                    .nIn(10)
+                    .nOut(10)
                     .name("Hidden")
                     .build();
 
             DenseLayer hiddenLayer2 = new DenseLayer.Builder()
-                    .nIn(15)
-                    .nOut(15)
+                    .nIn(10)
+                    .nOut(10)
                     .name("Hidden2")
                     .build();
 
             OutputLayer outputLayer = new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-                    .nIn(15)
+                    .nIn(10)
                     .nOut(5)
                     .name("Output")
                     .activation(Activation.SOFTMAX)
@@ -228,9 +228,9 @@ public class MainActivity extends AppCompatActivity {
             NeuralNetConfiguration.Builder nncBuilder = new NeuralNetConfiguration.Builder();
             long seed = 6;
             nncBuilder.seed(seed);
-            nncBuilder.iterations(500);
+            nncBuilder.iterations(300);
             nncBuilder.learningRate(0.1);
-            nncBuilder.activation(Activation.TANH);
+            nncBuilder.activation(Activation.RELU);
             nncBuilder.weightInit(WeightInit.XAVIER);
             nncBuilder.regularization(true).l2(1e-4);
 
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
         // This is our main background thread for the neural net
         @Override
-        protected Void doInBackground(Void...params) {
+        protected Void  doInBackground(Void...params) {
         //Get the doubles from params, which is an array so they will be 0,1,2,3
 
 
@@ -521,11 +521,8 @@ public class MainActivity extends AppCompatActivity {
 
                    double[][] result = LinPred.applyLinearPredictiveCoding(tstD);
 
-                   for (int z = 0; z<50; z++){
-                       helperdata[mdatai][z] = (float) result[0][z];
 
-                   }
-                    for(int s = 0; s<10; s++){
+                    for(int s = 0; s<50; s++){
                         actualInput.putScalar(new int[]{0,s}, result[0][s]);
 
                     }
